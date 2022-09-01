@@ -8,7 +8,7 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   const app = express();
 
   // Set the network port
-  const port = process.env.PORT || 8082;
+  const port = process.env.PORT || 8080;
   
   // Use the body parser middleware for post requests
   app.use(bodyParser.json());
@@ -38,12 +38,12 @@ import {filterImageFromURL, deleteLocalFiles} from './util/util';
   // Displays a simple message to the user
   app.get( "/filteredimage", async ( req: Request, res: Response ) => {
     try {
-      const imageUrl:string = req.query.image_url.tostring();
+      const imageUrl:string = req.query.image_url;
       if (!imageUrl) {
-        return res.status(404).json({ message: "Image IRL is required" });
+        return res.status(404).json({ message: "Image URL is required" });
       }
 
-    const filteredImageFilePath:string = await filterImageFromURL (imageUrl) 
+    const filteredImageFilePath:string = await filterImageFromURL(imageUrl)
     res.status(200).sendFile(filteredImageFilePath)
     req.on('close', () => deleteLocalFiles([filteredImageFilePath])) 
     } catch (error) {

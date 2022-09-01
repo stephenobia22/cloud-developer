@@ -16,11 +16,13 @@ export async function filterImageFromURL(inputURL: string): Promise<string> {
     try {
       const photo = await axios ({
         method: 'get',
-        url: 'inputURL',
+        url: inputURL,
         responseType: 'arraybuffer'
-      }) .then(({ data: imageBuffer}) => Jimp.read(imageBuffer))
+      }) .then( function ({data:imageBuffer}){
 
+        return Jimp.read(imageBuffer)
 
+      });
       const outpath =
         "/tmp/filtered." + Math.floor(Math.random() * 2000) + ".jpg";
       await photo
