@@ -27,7 +27,7 @@ import { Car, cars as cars_list } from './cars';
   // > try it {{host}}/persons/:the_name
   app.get( "/persons/:name", 
     ( req: Request, res: Response ) => {
-      let { name } = req.params;
+      let  name  = req.params;
 
       if ( !name ) {
         return res.status(400)
